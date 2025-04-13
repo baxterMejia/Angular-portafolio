@@ -1,0 +1,31 @@
+<input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" />
+
+
+<table *ngIf="users$ | async as users">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Ciudad</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let user of filter(users)">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.address.city }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div *ngIf="users$ | async as users" class="pagination">
+  <button
+    *ngFor="let page of [].constructor(getPageCount(users)); let i = index"
+    (click)="changePage(i + 1)"
+    [class.active]="currentPage === i + 1"
+  >
+    {{ i + 1 }}
+  </button>
+</div>

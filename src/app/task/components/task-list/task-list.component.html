@@ -1,0 +1,30 @@
+<h2>Gestión de Tareas</h2>
+
+<form (submit)="addTask(); $event.preventDefault()">
+  <textarea [(ngModel)]="newTaskName" placeholder="Descripción de la tarea" name="description"></textarea>
+  <input type="date" [(ngModel)]="newDueDate" name="dueDate" required />
+  <button type="submit">Agregar</button>
+</form>
+
+
+
+<div *ngIf="tasks.length === 0">
+  <p>No hay tareas a mostrar.</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tarea</th>
+      <th>Fecha de entrega</th>
+      <th>Completada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.name }}</td>
+      <td>{{ task.dueDate | date: 'shortDate' }}</td>
+      <td>{{ task.isCompleted ? 'Sí' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>
